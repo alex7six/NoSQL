@@ -4,5 +4,5 @@
 docker run --name mongodb -d -p 27018:27017 mongo  
 Компас подключаю по строке   
 mongodb://localhost:27018/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false  
-В качестве тестовой я взял несколько коллекций, в том числе большую на 5 млн записей по перевозкам Uber:  
+В качестве тестовой я взял несколько коллекций, в том числе относительно большую на 14,3 млн записей по перевозкам Uber:  
 https://www.kaggle.com/fivethirtyeight/uber-pickups-in-new-york-city/version/2?select=uber-raw-data-janjune-15.csv
