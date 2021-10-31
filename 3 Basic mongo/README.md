@@ -15,13 +15,13 @@ db.uber.update({"_id" : 10}, {"qty": 10})
 3. Индекс.  
 Создал индекс по полю locationID. Скорость поиска по этому полю стало моментальной.  
 Скорость поиска с индексом:  
-> d = new Date; db.uber.find({"locationID" : 141});
-> print(new Date - d + 'ms')
+> d = new Date; db.uber.find({"locationID" : 141});  
+> print(new Date - d + 'ms')  
 846ms  
 
 Скорость поиска без индекса в 10 раз дольше:    
-> d = new Date; db.uber.find({"locationID" : 141});
-> print(new Date - d + 'ms')
+> d = new Date; db.uber.find({"locationID" : 141});  
+> print(new Date - d + 'ms')  
 7364ms
 
 Также можно посмотреть план запроса, включая время выполнения:  
