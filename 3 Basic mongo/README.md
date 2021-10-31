@@ -18,7 +18,8 @@ db.uber.update({"_id" : 10}, {"qty": 10})
 > d = new Date; db.uber.find({"locationID" : 141});
 > print(new Date - d + 'ms')
 846ms  
-Скорость поиска без индекса в 10 раз дольше:  
+
+Скорость поиска без индекса в 10 раз дольше:    
 > d = new Date; db.uber.find({"locationID" : 141});
 > print(new Date - d + 'ms')
 7364ms
