@@ -1,0 +1,195 @@
+> db.uber.find({"locationID" : 141}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "test.uber",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "locationID" : {
+                                "$eq" : 141
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "locationID" : {
+                                        "$eq" : 141
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 0,
+                "executionTimeMillis" : 7143,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 14270480,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "locationID" : {
+                                        "$eq" : 141
+                                }
+                        },
+                        "nReturned" : 0,
+                        "executionTimeMillisEstimate" : 593,
+                        "works" : 14270482,
+                        "advanced" : 0,
+                        "needTime" : 14270481,
+                        "needYield" : 0,
+                        "saveState" : 14270,
+                        "restoreState" : 14270,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 14270480
+                }
+        },
+        "command" : {
+                "find" : "uber",
+                "filter" : {
+                        "locationID" : 141
+                },
+                "$db" : "test"
+        },
+        "serverInfo" : {
+                "host" : "8e69d43f9f55",
+                "port" : 27017,
+                "version" : "5.0.3",
+                "gitVersion" : "657fea5a61a74d7a79df7aff8e4bcf0bc742b748"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1
+}
+> db.uber.find({"locationID" : 141}).explain("executionStats")
+{
+        "explainVersion" : "1",
+        "queryPlanner" : {
+                "namespace" : "test.uber",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "locationID" : {
+                                "$eq" : 141
+                        }
+                },
+                "maxIndexedOrSolutionsReached" : false,
+                "maxIndexedAndSolutionsReached" : false,
+                "maxScansToExplodeReached" : false,
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "locationID" : 1
+                                },
+                                "indexName" : "_loc",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "locationID" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "locationID" : [
+                                                "[141.0, 141.0]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 0,
+                "executionTimeMillis" : 0,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 0,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 0,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 1,
+                        "advanced" : 0,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "docsExamined" : 0,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 0,
+                                "executionTimeMillisEstimate" : 0,
+                                "works" : 1,
+                                "advanced" : 0,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "locationID" : 1
+                                },
+                                "indexName" : "_loc",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "locationID" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "locationID" : [
+                                                "[141.0, 141.0]"
+                                        ]
+                                },
+                                "keysExamined" : 0,
+                                "seeks" : 1,
+                                "dupsTested" : 0,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "command" : {
+                "find" : "uber",
+                "filter" : {
+                        "locationID" : 141
+                },
+                "$db" : "test"
+        },
+        "serverInfo" : {
+                "host" : "8e69d43f9f55",
+                "port" : 27017,
+                "version" : "5.0.3",
+                "gitVersion" : "657fea5a61a74d7a79df7aff8e4bcf0bc742b748"
+        },
+        "serverParameters" : {
+                "internalQueryFacetBufferSizeBytes" : 104857600,
+                "internalQueryFacetMaxOutputDocSizeBytes" : 104857600,
+                "internalLookupStageIntermediateDocumentMaxSizeBytes" : 104857600,
+                "internalDocumentSourceGroupMaxMemoryBytes" : 104857600,
+                "internalQueryMaxBlockingSortMemoryUsageBytes" : 104857600,
+                "internalQueryProhibitBlockingMergeOnMongoS" : 0,
+                "internalQueryMaxAddToSetBytes" : 104857600,
+                "internalDocumentSourceSetWindowFieldsMaxMemoryBytes" : 104857600
+        },
+        "ok" : 1

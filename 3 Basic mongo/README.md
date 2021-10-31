@@ -5,4 +5,26 @@ docker run --name mongodb -d -p 27018:27017 mongo
 Компас подключаю по строке   
 mongodb://localhost:27018/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false  
 В качестве тестовой я взял несколько коллекций, в том числе относительно большую на 14,3 млн записей по перевозкам Uber:  
-https://www.kaggle.com/fivethirtyeight/uber-pickups-in-new-york-city/version/2?select=uber-raw-data-janjune-15.csv
+https://www.kaggle.com/fivethirtyeight/uber-pickups-in-new-york-city/version/2?select=uber-raw-data-janjune-15.csv  
+1. Вставка данных: вставил данные в маленькую таблицу и большую. Скорость вставки одинаковая.
+А вот поиск по неиндексированному полю этой самой записи на большой таблице шел намного дольше:  
+db.uber.insert( { _id: 10, item: "box", qty: 20 } )  
+db.uber.find({"item" : "box"})  
+2. Обновление данных по индексу также идет одинаково быстро:  
+db.uber.update({"_id" : 10}, {"qty": 10})  
+3. Индекс.  
+Создал индекс по полю locationID. Скорость поиска по этому полю стало моментальной.  
+Скорость поиска с индексом:  
+> d = new Date; db.uber.find({"locationID" : 141});
+> print(new Date - d + 'ms')
+846ms  
+Скорость поиска без индекса в 10 раз дольше:  
+> d = new Date; db.uber.find({"locationID" : 141});
+> print(new Date - d + 'ms')
+7364ms
+
+Также можно посмотреть план запроса, включая время выполнения:  
+db.uber.find({"locationID" : 141}).explain("executionStats")  
+Приложил статистику планов запроса в отдельном файле: видно, что с индексом идет сначала поиск в индексе, а потом fetch.
+
+
